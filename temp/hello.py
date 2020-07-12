@@ -27,6 +27,7 @@ int kprobe__sys_clone(void *ctx)
 }
 '''
 
+#load eBPF program
 #python程序的其余部分将eBPF代码加载到内核并运行
 b = BPF(text = program) #实例化一个新的BPF对象b
 
