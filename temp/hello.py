@@ -29,8 +29,10 @@ int kprobe__sys_clone(void *ctx)
 
 #python程序的其余部分将eBPF代码加载到内核并运行
 b = BPF(text = program) #实例化一个新的BPF对象b
-b.trace_print() #BPF_trace_print()对内核的trace buffer(/sys/kerel/debug/tracing/trace_pipe)执行阻塞读取
-                # 并将内容打印到标准输出中
+
+#BPF_trace_print()对内核的trace buffer(/sys/kerel/debug/tracing/trace_pipe)执行阻塞读取
+# 并将内容打印到标准输出中
+b.trace_print() #trace_print()是BPF的python库的接口
 
 #以前将程序编译为eBPF字节码并将其加载到内核的繁琐任务完全是通过实例化一个新的BPF对象来完成的
 # 所有的底层工作都在幕后，由python绑定和bcc的libbpf完成
