@@ -17,7 +17,7 @@ b = BPF(text = '''
         int kprobe__blk_account_io_completion(struct pt_regs *ctx, 
                                                 struct request *req) {
                 //dist.increment()函数会增加直方图中各个值，值由参数指定。increment:增量
-                dist.increment(bpf_log2(req->__data_len/1024));
+                dist.increment(bpf_log2l(req->__data_len/1024)); //bpf_log2l()将值变成log-2模式
 
                 return 0;
         }
@@ -33,4 +33,4 @@ except KeyboardInterrupt:
     print
 
 #output
-b["dist"].print_log2_hist("kbytes")
+b["dist"].print_log2_hist("kbytes") #print_log2_hist("kbytes")打印hist直方图，列单位为kbytes
