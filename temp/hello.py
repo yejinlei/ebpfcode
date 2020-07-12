@@ -11,11 +11,16 @@ program = '''
  *kprobe__前缀指示bcc工具链将kprobe附加到
  *其后的内核符号上
  *
+ *将探针(uprobe,kprobe,tracepoints或USDT)插入到给定的函数sys_cone()中，
+ *该函数可以在内核中或在用户空间代码中
+ *
  */
 int kprobe__sys_clone(void *ctx) 
 {
     //当调用sys_clone并触发该kprobe时，eBPF程序运行
-    //bpf_trace_printk()打印“hello world”到内核的trace buffer(跟踪缓冲区)
+    //bpf_trace_printk()打印“hello world”到内核的trace buffer(跟踪缓冲区)。
+    //kernel trace buffer就是/sys/kernel/debug/tracing/trace_pipe
+    
     bpf_trace_printk("hello, world!\\n");
 
     return 0;
