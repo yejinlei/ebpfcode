@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding=utf-8
-from futrue import print function
+from __futrue__ import print_function
 from bcc import BPF
 
 REQ_WRITE = 1
