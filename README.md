@@ -1,5 +1,11 @@
 ## eBPF/BCC原理和编程学习
 
+#### 系统跟踪框架
+
+![systrace](/home/hds/github/ebpfcode/img/systrace.png)
+
+
+
 #### 关于eBPF的好文
 
 - LWN.net的eBPF/BCC文章完整系列
