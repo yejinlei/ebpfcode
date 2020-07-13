@@ -2,7 +2,7 @@
 
 #### 系统跟踪框架
 
-![systrace](/home/hds/github/ebpfcode/img/systrace.png)
+![systrace](/img/systrace.png)
 
 
 
