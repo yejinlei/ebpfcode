@@ -8,14 +8,34 @@ from bcc import BPF
 # eBPF虚拟机上的内核中运行的代码
 program = '''
 /*
- *kprobe__前缀指示bcc工具链将kprobe附加到
+ *kprobe__前缀指示bcc工具链将kprobe附加到   \   
  *其后的内核符号上
  *
- *将探针(uprobe,kprobe,tracepoints或USDT)插入到给定的函数sys_cone()中，
- *该函数可以在内核中或在用户空间代码中
+ *将探针(uprobe,kprobe,tracepoints或USDT)   \
+ *插入到给定的函数sys_cone()中，该函数可以  \
+ *在内核中或在用户空间代码中
  *
+ *使用kprobe的语法是:                       \
+ *          kprobe__kernel_function_name    \
+ *其中kprobe__是前缀，用于给内核函数创建    \
+ *一个kprobe(内核函数调用的动态跟踪)。
+ *
+ *也可通过C语言函数定义一个C函数，然后使用  \
+ *python的BPF.attach_kprobe()来关联到内核函数
+ *
+ *  kretprobes:                             \
+ *              kretprobes动态跟踪内核函数的返回，语法如下：    \
+ *              kretprobe__kernel_function_name                 \
+ *              前缀是kretprobe__。也可以使用python的
+ *              BPF.attach_kretprobe()来关联Ｃ函数到内核函数。  \
+ *  
+ *  例子:   int kretprobe__tcp_v4_connect(struct pt_regs *ctx)
+ *          {
+ *                  int ret = PT_REGS_RC(ctx);  //返回值保存在ret中
+ *                          [...]
+ *          }
  */
-int kprobe__sys_clone(void *ctx) 
+int kprobe__sys_clone(void *ctx) //kprobe__是前缀，用于给内核函数创建一个kprobe
 {
     //当调用sys_clone并触发该kprobe时，eBPF程序运行
     //bpf_trace_printk()打印“hello world”到内核的trace buffer(跟踪缓冲区)。
