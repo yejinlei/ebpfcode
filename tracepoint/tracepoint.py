@@ -6,6 +6,18 @@
 #可以使用perf list命令来列出可用的tracepoints
 #
 #将eBPF程序附加到tracepoint上需要内核版本大于4.7
+#
+# TRACEPOINT_PROBE()宏：该宏声明要附加到跟踪点的函数，\
+#                       每次触发该跟踪点时都会调用该函数
+#  
+#  以下的C代码片段显示了一个空的eBPF程序：该程序每次在内核中调用kmalloc()时运行
+#               TRACEPOINT_PROBE(kmem, kmalloc) { 
+#                       retrurn 0;
+#               }
+#               该宏的参数是跟踪点的类别和事件本身。    \
+#               这将直接转换为debugfs文件系统的层次结构布局 \
+#               (例如：/sys/kernel/debug/traceing/events/category/event)        
+#
 
 #程序功能：
 #           跟踪随机读
